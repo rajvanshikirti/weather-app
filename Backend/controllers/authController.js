@@ -29,7 +29,6 @@ const register = async (req, res) => {
             password: hashedPassword,
         });
 
-        // Generate token
         const token = generateToken(email);
 
         // Set cookie
