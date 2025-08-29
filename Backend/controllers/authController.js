@@ -1,6 +1,7 @@
 import User from "../models/UserSchema.js"
 import bcrypt from "bcrypt"
 import { generateToken } from "../utils/generateToken.js";
+;
 const hashPassword = async (plainPassword) => {
     const salt = await bcrypt.genSalt(11); 
     const hashedPassword = await bcrypt.hash(plainPassword, salt);
@@ -9,7 +10,7 @@ const hashPassword = async (plainPassword) => {
 
 
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
@@ -49,8 +50,9 @@ const register = async (req, res) => {
         return res.status(500).json({ message: "Server error" });
     }
 };
- const login = async (req, res) => {
+export const login = async (req, res) => {
   try {
+    console.log("hi")
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -62,6 +64,14 @@ const register = async (req, res) => {
     }
     const token = generateToken(user._id);
 
+
+        // Set cookie
+        res.cookie("authToken", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict",
+            maxAge: 60 * 60 * 1000,
+        });
     res.status(200).json({
       message: "Login successful",
       token,
