@@ -1,4 +1,4 @@
-
+import React from "react";
 import { Toaster } from "react-hot-toast";
 import AuthRoutes from "./routes/authRoutes"
 function App() {
