@@ -1,30 +1,30 @@
 import { useState } from "react";
 import React from "react";
-import Error from "../components/Error";
-import {UseNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import toast from "react-hot-toast";
+import axios from 'axios';
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const Navigate=UseNavigate();
+  const Navigate=useNavigate();
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     try {
-      const response=await axios.post(`${process.env.BACKEND_URL}api/auth/register`,{
+      const response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/auth/register`,{
         username,email,password
       });
+      console.log(response)
 
       if(!response){
-        <Error message={"Server Down "}/>
         Navigate(0);
       }
       toast.success("User registered successfully");
       Navigate('/');
       
     } catch (error) {
-      <Error message={error.message} />
+      console.log(error);
+      toast.error(error.message);
     }
     
   };
