@@ -1,5 +1,9 @@
 import { useState } from "react";
 import React from "react";
+<<<<<<< HEAD
+=======
+import Error from "../components/Error";
+>>>>>>> 6a3fbfcd9d87e4151d424bad4a6a984442626879
 import {useNavigate} from "react-router-dom"
 import toast from "react-hot-toast";
 import axios from 'axios';
