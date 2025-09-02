@@ -1,10 +1,12 @@
-import React from "react";
-import Login from "./components/Login";
+
+import { Toaster } from "react-hot-toast";
+import AuthRoutes from "./routes/authRoutes"
 function App() {
   return (
-    <div>
-        
-    </div>
+    <>
+      <AuthRoutes/>
+           <Toaster position="top-right" reverseOrder={false} />
+    </>
   );
 }
 

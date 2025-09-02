@@ -1,14 +1,32 @@
 import { useState } from "react";
 import React from "react";
+import Error from "../components/Error";
+import {UseNavigate} from "react-router-dom"
+import toast from "react-hot-toast";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const Navigate=UseNavigate();
   const handleSubmit = async (e) => {
+
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("username:", username);
+    try {
+      const response=await axios.post(`${process.env.BACKEND_URL}api/auth/register`,{
+        username,email,password
+      });
+
+      if(!response){
+        <Error message={"Server Down "}/>
+        Navigate(0);
+      }
+      toast.success("User registered successfully");
+      Navigate('/');
+      
+    } catch (error) {
+      <Error message={error.message} />
+    }
+    
   };
   return (
     <div style={{ maxWidth: "400px", margin: "auto" }}>
